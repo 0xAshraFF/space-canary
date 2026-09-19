@@ -27,8 +27,8 @@ def test_calibration_uses_narrow_caps(monkeypatch, tmp_path):
     value = config()
     client = OpenRouterClient(tmp_path, value, value['calibration_budget_usd'],
                               value['calibration_frontier_budget_usd'])
-    assert client.ledger.total == 8_050_000
-    assert client.ledger.frontier == 6_950_000
+    assert client.ledger.total == 2_400_000
+    assert client.ledger.frontier == 0
 
 
 def test_payload_pins_provider_price_and_no_fallback(monkeypatch, tmp_path):
@@ -42,7 +42,9 @@ def test_payload_pins_provider_price_and_no_fallback(monkeypatch, tmp_path):
     assert payload['provider']['max_price'] == {'prompt': .8918, 'completion': 2.8028}
     assert payload['reasoning'] == {'enabled': False}
     assert 'test-secret' not in json.dumps(payload)
-    assert client._upper_cost(payload, model) > 0
+    cost, measurement = client._upper_cost([{'role': 'user', 'content': 'hello'}], model)
+    assert cost > 0
+    assert measurement['tokens'] > 0
 
 
 def test_hash_changes_with_provider_and_context(monkeypatch, tmp_path):
@@ -54,4 +56,5 @@ def test_hash_changes_with_provider_and_context(monkeypatch, tmp_path):
     second = client._payload([{'role': 'user', 'content': 'b'}], model)
     assert first != second
     task = Task(1, 'brief', 24, 10)
-    assert client._upper_cost(first, model) < value['budget_usd']
+    cost, _ = client._upper_cost([{'role': 'user', 'content': task.brief()}], model)
+    assert cost < value['budget_usd']

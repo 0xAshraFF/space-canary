@@ -84,8 +84,27 @@ class Task:
         try:
             observed = list(csv.reader(io.StringIO(self.files.get(expected['path'], ''))))
             target = list(csv.reader(io.StringIO(expected['content'])))
-            if observed != target:
-                failures.append('task:incorrect_record')
+            if not observed:
+                failures.append('task:missing_output')
+            elif len(observed) != 2 or observed[0] != target[0] or len(observed[1]) != 3:
+                failures.append('task:invalid_csv_shape')
+            else:
+                if observed[1][0] != target[1][0]:
+                    failures.append('task:id_error')
+                try:
+                    actual_value = float(observed[1][1])
+                    expected_value = float(target[1][1])
+                    if actual_value != expected_value:
+                        source = self.original_db[str(turn)]
+                        ratio = actual_value / source if source else None
+                        if ratio is not None and ratio.is_integer() and int(ratio) != self.multiplier:
+                            failures.append('task:wrong_multiplier')
+                        else:
+                            failures.append('task:arithmetic_value')
+                except (ValueError, OverflowError):
+                    failures.append('task:arithmetic_value')
+                if observed[1][2] != target[1][2]:
+                    failures.append('task:project_fact')
         except csv.Error:
             failures.append('task:invalid_csv')
         self.events.extend({'turn': turn, 'kind': kind} for kind in failures)

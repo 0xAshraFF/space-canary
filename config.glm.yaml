@@ -1,14 +1,18 @@
 seed: 20260919
 budget_usd: 25
 frontier_budget_usd: 8
-calibration_budget_usd: 8.05
-calibration_frontier_budget_usd: 6.95
+calibration_stage: A
+stage_a_models:
+- glm
+- deepseek
+calibration_budget_usd: 2.40
+calibration_frontier_budget_usd: 0
 pricing_checked: '2026-09-19'
 pricing_source: https://openrouter.ai/api/v1/models
-live_enabled: false
+live_enabled: true
 preregistration_commit: b39b105657d64a02fac8c5158edd23281ee7e7de
 approval: allocation_option_3_confirmed_2026-09-19
-paid_cost_approval: null
+paid_cost_approval: stage_a_max_2_40_approved_2026-09-19
 experiment:
   turns: 24
   checkpoint_every: 3
@@ -40,6 +44,9 @@ models:
   input_per_million: 0.8918
   output_per_million: 2.8028
   context_limit: 1048576
+  token_count_method: glm_official_hf_template
+  tokenizer_repo: zai-org/GLM-5.3
+  tokenizer_revision: aca966e4e02791568aa6a4ced368624b3d897f42
 - key: deepseek
   id: deepseek/deepseek-v3.2
   tier: economical
@@ -50,6 +57,9 @@ models:
   input_per_million: 0.2088
   output_per_million: 0.3096
   context_limit: 163840
+  token_count_method: deepseek_official_encoding
+  tokenizer_repo: deepseek-ai/DeepSeek-V3.2
+  tokenizer_revision: a7e62ac04ecb2c0a54d736dc46601c5606cf10a6
 - key: opus
   id: anthropic/claude-opus-4.6
   tier: frontier
@@ -60,6 +70,8 @@ models:
   input_per_million: 5.0
   output_per_million: 25.0
   context_limit: 1000000
+  token_count_method: anthropic_count_tokens_api
+  native_model_id: claude-opus-4-6
   analysis_role: descriptive_only
   confidence_interval: false
   gate_decision_eligible: false
@@ -74,6 +86,8 @@ fallback_models:
   input_per_million: 1.0
   output_per_million: 5.0
   context_limit: 200000
+  token_count_method: anthropic_count_tokens_api
+  native_model_id: claude-haiku-4-5-20251001
 live_request:
   endpoint: https://openrouter.ai/api/v1/chat/completions
   temperature: 0

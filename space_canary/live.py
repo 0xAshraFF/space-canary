@@ -9,6 +9,7 @@ from pathlib import Path
 from .environment import Task
 from .probes import context_size, fork_probe, label_checkpoints, parse_answer, positions, score_probe
 from .storage import Ledger, atomic_json, digest
+from .token_counting import InputTokenCounter
 
 
 class LiveRunError(RuntimeError):
@@ -27,6 +28,7 @@ class OpenRouterClient:
                              config['frontier_budget_usd'] if frontier_cap is None else frontier_cap)
         self.new_calls = 0
         self.cache_hits = 0
+        self.token_counter = InputTokenCounter()
 
     def _payload(self, messages, model):
         live = self.config['live_request']
@@ -49,16 +51,15 @@ class OpenRouterClient:
             },
         }
 
-    def _upper_cost(self, payload, model):
-        # Every tokenizer token consumes at least one serialized UTF-8 byte. The
-        # 8K allowance covers provider-rendered framing not present in the JSON.
-        serialized = json.dumps(payload, sort_keys=True, separators=(',', ':')).encode('utf-8')
-        input_upper = len(serialized) + 8192
-        if input_upper > model['context_limit']:
+    def _upper_cost(self, messages, model):
+        measurement = self.token_counter.count(messages, model)
+        measured_input = measurement['tokens']
+        if measured_input + self.config['experiment']['max_output_tokens'] > model['context_limit']:
             raise LiveRunError('Conservative input bound exceeds pinned endpoint context limit')
         output_upper = self.config['experiment']['max_output_tokens']
-        return (input_upper * model['input_per_million'] +
+        cost = (measured_input * model['input_per_million'] +
                 output_upper * model['output_per_million']) / 1_000_000
+        return cost, measurement
 
     def call(self, messages, model, task, turn, kind, config_hash):
         payload = self._payload(messages, model)
@@ -73,7 +74,8 @@ class OpenRouterClient:
             self.cache_hits += 1
             return cached['response']
 
-        self.ledger.reserve(request_hash, model['tier'], self._upper_cost(payload, model))
+        upper_cost, measurement = self._upper_cost(messages, model)
+        self.ledger.reserve(request_hash, model['tier'], upper_cost)
         request = urllib.request.Request(
             self.config['live_request']['endpoint'],
             data=json.dumps(payload).encode('utf-8'),
@@ -103,7 +105,9 @@ class OpenRouterClient:
                       int(usage.get('completion_tokens', 0)) * model['output_per_million']) / 1_000_000
         response = {'content': choices[0].get('message', {}).get('content') or '',
                     'usage': usage, 'provider': provider, 'id': result.get('id'),
-                    'request_hash': request_hash, 'actual_cost_usd': float(actual)}
+                    'request_hash': request_hash, 'actual_cost_usd': float(actual),
+                    'pre_dispatch_measurement': measurement,
+                    'reserved_cost_usd': upper_cost}
         atomic_json(cache_path, {'request': request_record, 'response': response})
         self.ledger.settle(request_hash, float(actual))
         self.new_calls += 1
@@ -152,6 +156,25 @@ def _run_model(config, output_dir, client, model):
     return records
 
 
+def _failure_breakdown(records):
+    categories = {'context_or_constraint': 0, 'arithmetic_or_value': 0, 'format_or_action': 0}
+    kinds = {}
+    for record in records:
+        for event in record['labels']['events']:
+            kind = event['kind']
+            kinds[kind] = kinds.get(kind, 0) + 1
+            if kind.startswith('constraint:') or kind in ['task:wrong_multiplier', 'task:project_fact']:
+                categories['context_or_constraint'] += 1
+            elif kind == 'task:arithmetic_value':
+                categories['arithmetic_or_value'] += 1
+            else:
+                categories['format_or_action'] += 1
+    total = sum(categories.values())
+    return {'events_by_kind': kinds, 'events_by_category': categories,
+            'context_or_constraint_fraction': categories['context_or_constraint'] / total if total else None,
+            'mostly_non_context': bool(total and categories['context_or_constraint'] <= total / 2)}
+
+
 def run_calibration(config, directory):
     if not config.get('live_enabled'):
         raise LiveRunError('Live calls are locked: live_enabled is false')
@@ -161,9 +184,11 @@ def run_calibration(config, directory):
         raise LiveRunError('Missing explicit allocation approval')
     if not config.get('paid_cost_approval'):
         raise LiveRunError('Missing explicit paid calibration cost approval')
+    if config.get('calibration_stage') != 'A':
+        raise LiveRunError('Only approved calibration Stage A is implemented')
     directory = Path(directory)
     directory.mkdir(parents=True, exist_ok=True)
-    manifest = {'mode': 'live', 'phase': 'calibration', 'config': config}
+    manifest = {'mode': 'live', 'phase': 'calibration-stage-a', 'config': config}
     manifest_path = directory / 'manifest.json'
     if manifest_path.exists() and json.loads(manifest_path.read_text()) != manifest:
         raise LiveRunError('Configuration changed: use a new output directory')
@@ -171,16 +196,23 @@ def run_calibration(config, directory):
     client = OpenRouterClient(directory, config, config['calibration_budget_usd'],
                               config['calibration_frontier_budget_usd'])
     records = []
-    for model in config['models']:
+    stage_keys = set(config['stage_a_models'])
+    stage_models = [model for model in config['models'] if model['key'] in stage_keys]
+    if {model['key'] for model in stage_models} != stage_keys:
+        raise LiveRunError('Stage A model key is missing from config')
+    if any(model['tier'] == 'frontier' for model in stage_models):
+        raise LiveRunError('Stage A cannot dispatch a frontier model')
+    for model in stage_models:
         records.extend(_run_model(config, directory, client, model))
 
     qualification = {}
-    for model in config['models']:
+    for model in stage_models:
         model_records = [r for r in records if r['model'] == model['key']]
         failures = sum(not r['labels']['task_success'] for r in model_records)
         rate = failures / len(model_records)
         qualification[model['key']] = {'failures': failures, 'trajectories': len(model_records),
                                        'failure_rate': rate,
+                                       'failure_breakdown': _failure_breakdown(model_records),
                                        'analysis_role': 'descriptive_only' if model['tier'] == 'frontier' else 'candidate'}
 
     minimum = config['qualification']['minimum_failure_rate']
@@ -194,19 +226,21 @@ def run_calibration(config, directory):
         qualification['glm']['decision'] = 'replace_with_haiku'
         qualification['haiku'] = {'failures': failures, 'trajectories': len(fallback_records),
                                   'failure_rate': rate,
+                                  'failure_breakdown': _failure_breakdown(fallback_records),
                                   'decision': 'qualifies' if minimum <= rate <= maximum else 'not_evaluable'}
     else:
         qualification['glm']['decision'] = ('qualifies' if qualification['glm']['failure_rate'] <= maximum
                                              else 'not_evaluable')
     qualification['deepseek']['decision'] = (
         'qualifies' if minimum <= qualification['deepseek']['failure_rate'] <= maximum else 'not_evaluable')
-    qualification['opus']['decision'] = 'descriptive_only'
+    qualification['opus'] = {'decision': 'stage_b_locked', 'trajectories': 0,
+                             'analysis_role': 'descriptive_only'}
 
     raw = directory / 'raw.jsonl.tmp'
     raw.write_text(''.join(json.dumps(r, sort_keys=True) + '\n' for r in records))
     raw.replace(directory / 'raw.jsonl')
     atomic_json(directory / 'qualification.json', qualification)
     atomic_json(directory / 'cost-ledger.json', client.ledger.export())
-    return {'phase': 'calibration', 'trajectories': len(records), 'qualification': qualification,
+    return {'phase': 'calibration-stage-a', 'trajectories': len(records), 'qualification': qualification,
             'new_calls': client.new_calls, 'cache_hits': client.cache_hits,
             'actual_spend_usd': client.ledger.export()['total_usd']}

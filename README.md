@@ -36,7 +36,7 @@ The original allocation fails the $25 total / $8 frontier caps. The locked desig
 
 Estimates use UTF-8/4 input approximations and maximum configured output tokens, without caching discounts or retries. They are planning estimates, not guaranteed bills. The SQLite ledger reserves an upper bound before dispatch, rejects cap overruns, and retains unresolved reservations across restarts. A paid transport must supply a validated upper bound and reconcile actual usage; display estimates must never substitute for that bound.
 
-Pinned-provider calibration estimate: approximately $6.87 for five trajectories each on GLM, DeepSeek, and Opus. The worst-case planned calibration is approximately $8.03 if GLM has zero failures and five Haiku replacement trajectories are required. The calibration command has its own hard caps of $8.05 total and $6.95 for Opus; it cannot consume the later main-run allocation. No calibration call may run until this revised ceiling is explicitly approved.
+Calibration is staged. Stage A runs GLM and DeepSeek only, adding Haiku only if the prespecified replacement rule fires, under a $2.40 hard cap. Stage B contains the descriptive Opus arm and remains locked pending Stage A qualification and separate approval. Before every dispatch, reservations use model-specific measured input tokens plus the configured maximum output; the byte estimator is display-only.
 
 ## Research protocol
 
