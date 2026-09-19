@@ -1,0 +1,297 @@
+{
+  "ci_limitation": "Cluster bootstrap of fixed OOF predictions; does not refit models per bootstrap.",
+  "endpoint": "any failure within K turns, pre-first-failure checkpoints only",
+  "mode": "mock",
+  "models": {
+    "deepseek": {
+      "baseline_gate2": {
+        "failed_trajectories_with_checkpoints": 7,
+        "failure_recall": 0.14285714285714285,
+        "healthy_trajectories": 5,
+        "mean_lead_turns_among_detected": 3.0,
+        "trajectory_false_alarm_rate": 0.4
+      },
+      "checkpoints": 60,
+      "status": "mock_only",
+      "trajectories": 12,
+      "variants": {
+        "arbitrary": {
+          "auc": {
+            "augmented_auc": 0.2654986522911051,
+            "baseline_auc": 0.3247978436657682,
+            "ci": [
+              -0.1396904761904762,
+              -0.016942090395480256
+            ],
+            "confidence": 0.95,
+            "delta_auc": -0.05929919137466311,
+            "valid_bootstraps": 1000
+          },
+          "gate2": {
+            "failed_trajectories_with_checkpoints": 7,
+            "failure_recall": 0.0,
+            "healthy_trajectories": 5,
+            "mean_lead_turns_among_detected": null,
+            "trajectory_false_alarm_rate": 0.0
+          }
+        },
+        "arbitrary+relevant+constraint": {
+          "auc": {
+            "augmented_auc": 0.8153638814016172,
+            "baseline_auc": 0.3247978436657682,
+            "ci": [
+              0.14029497288425857,
+              0.8
+            ],
+            "confidence": 0.95,
+            "delta_auc": 0.490566037735849,
+            "valid_bootstraps": 1000
+          },
+          "decision_interval": {
+            "augmented_auc": 0.8153638814016172,
+            "baseline_auc": 0.3247978436657682,
+            "ci": [
+              0.11085141509433973,
+              0.8297793058755761
+            ],
+            "confidence": 0.975,
+            "delta_auc": 0.490566037735849,
+            "valid_bootstraps": 1000
+          },
+          "gate2": {
+            "failed_trajectories_with_checkpoints": 7,
+            "failure_recall": 0.7142857142857143,
+            "healthy_trajectories": 5,
+            "mean_lead_turns_among_detected": 2.2,
+            "trajectory_false_alarm_rate": 0.0
+          }
+        },
+        "constraint": {
+          "auc": {
+            "augmented_auc": 0.807277628032345,
+            "baseline_auc": 0.3247978436657682,
+            "ci": [
+              0.17040517961570606,
+              0.7893990872210951
+            ],
+            "confidence": 0.95,
+            "delta_auc": 0.48247978436657685,
+            "valid_bootstraps": 1000
+          },
+          "gate2": {
+            "failed_trajectories_with_checkpoints": 7,
+            "failure_recall": 0.7142857142857143,
+            "healthy_trajectories": 5,
+            "mean_lead_turns_among_detected": 2.2,
+            "trajectory_false_alarm_rate": 0.0
+          }
+        },
+        "relevant": {
+          "auc": {
+            "augmented_auc": 0.28975741239892183,
+            "baseline_auc": 0.3247978436657682,
+            "ci": [
+              -0.16139547952047956,
+              0.08751614741641332
+            ],
+            "confidence": 0.95,
+            "delta_auc": -0.03504043126684636,
+            "valid_bootstraps": 1000
+          },
+          "gate2": {
+            "failed_trajectories_with_checkpoints": 7,
+            "failure_recall": 0.14285714285714285,
+            "healthy_trajectories": 5,
+            "mean_lead_turns_among_detected": 3.0,
+            "trajectory_false_alarm_rate": 0.4
+          }
+        }
+      }
+    },
+    "haiku": {
+      "baseline_gate2": {
+        "failed_trajectories_with_checkpoints": 7,
+        "failure_recall": 0.14285714285714285,
+        "healthy_trajectories": 5,
+        "mean_lead_turns_among_detected": 3.0,
+        "trajectory_false_alarm_rate": 0.4
+      },
+      "checkpoints": 60,
+      "status": "mock_only",
+      "trajectories": 12,
+      "variants": {
+        "arbitrary": {
+          "auc": {
+            "augmented_auc": 0.2654986522911051,
+            "baseline_auc": 0.3247978436657682,
+            "ci": [
+              -0.1396904761904762,
+              -0.016942090395480256
+            ],
+            "confidence": 0.95,
+            "delta_auc": -0.05929919137466311,
+            "valid_bootstraps": 1000
+          },
+          "gate2": {
+            "failed_trajectories_with_checkpoints": 7,
+            "failure_recall": 0.0,
+            "healthy_trajectories": 5,
+            "mean_lead_turns_among_detected": null,
+            "trajectory_false_alarm_rate": 0.0
+          }
+        },
+        "arbitrary+relevant+constraint": {
+          "auc": {
+            "augmented_auc": 0.8153638814016172,
+            "baseline_auc": 0.3247978436657682,
+            "ci": [
+              0.14029497288425857,
+              0.8
+            ],
+            "confidence": 0.95,
+            "delta_auc": 0.490566037735849,
+            "valid_bootstraps": 1000
+          },
+          "decision_interval": {
+            "augmented_auc": 0.8153638814016172,
+            "baseline_auc": 0.3247978436657682,
+            "ci": [
+              0.11085141509433973,
+              0.8297793058755761
+            ],
+            "confidence": 0.975,
+            "delta_auc": 0.490566037735849,
+            "valid_bootstraps": 1000
+          },
+          "gate2": {
+            "failed_trajectories_with_checkpoints": 7,
+            "failure_recall": 0.7142857142857143,
+            "healthy_trajectories": 5,
+            "mean_lead_turns_among_detected": 2.2,
+            "trajectory_false_alarm_rate": 0.0
+          }
+        },
+        "constraint": {
+          "auc": {
+            "augmented_auc": 0.807277628032345,
+            "baseline_auc": 0.3247978436657682,
+            "ci": [
+              0.17040517961570606,
+              0.7893990872210951
+            ],
+            "confidence": 0.95,
+            "delta_auc": 0.48247978436657685,
+            "valid_bootstraps": 1000
+          },
+          "gate2": {
+            "failed_trajectories_with_checkpoints": 7,
+            "failure_recall": 0.7142857142857143,
+            "healthy_trajectories": 5,
+            "mean_lead_turns_among_detected": 2.2,
+            "trajectory_false_alarm_rate": 0.0
+          }
+        },
+        "relevant": {
+          "auc": {
+            "augmented_auc": 0.28975741239892183,
+            "baseline_auc": 0.3247978436657682,
+            "ci": [
+              -0.16139547952047956,
+              0.08751614741641332
+            ],
+            "confidence": 0.95,
+            "delta_auc": -0.03504043126684636,
+            "valid_bootstraps": 1000
+          },
+          "gate2": {
+            "failed_trajectories_with_checkpoints": 7,
+            "failure_recall": 0.14285714285714285,
+            "healthy_trajectories": 5,
+            "mean_lead_turns_among_detected": 3.0,
+            "trajectory_false_alarm_rate": 0.4
+          }
+        }
+      }
+    },
+    "opus": {
+      "baseline_gate2": {
+        "failed_trajectories_with_checkpoints": 2,
+        "failure_recall": 0.0,
+        "healthy_trajectories": 10,
+        "mean_lead_turns_among_detected": null,
+        "trajectory_false_alarm_rate": 0.0
+      },
+      "checkpoints": 75,
+      "status": "mock_only",
+      "trajectories": 12,
+      "variants": {
+        "arbitrary": {
+          "auc": {
+            "augmented_auc": 0.2842465753424658,
+            "baseline_auc": 0.14726027397260277,
+            "ci": null,
+            "delta_auc": 0.136986301369863,
+            "descriptive_only": true
+          },
+          "gate2": {
+            "failed_trajectories_with_checkpoints": 2,
+            "failure_recall": 0.0,
+            "healthy_trajectories": 10,
+            "mean_lead_turns_among_detected": null,
+            "trajectory_false_alarm_rate": 0.0
+          }
+        },
+        "arbitrary+relevant+constraint": {
+          "auc": {
+            "augmented_auc": 0.18835616438356168,
+            "baseline_auc": 0.14726027397260277,
+            "ci": null,
+            "delta_auc": 0.0410958904109589,
+            "descriptive_only": true
+          },
+          "gate2": {
+            "failed_trajectories_with_checkpoints": 2,
+            "failure_recall": 0.0,
+            "healthy_trajectories": 10,
+            "mean_lead_turns_among_detected": null,
+            "trajectory_false_alarm_rate": 0.0
+          }
+        },
+        "constraint": {
+          "auc": {
+            "augmented_auc": 0.26369863013698636,
+            "baseline_auc": 0.14726027397260277,
+            "ci": null,
+            "delta_auc": 0.11643835616438358,
+            "descriptive_only": true
+          },
+          "gate2": {
+            "failed_trajectories_with_checkpoints": 2,
+            "failure_recall": 0.0,
+            "healthy_trajectories": 10,
+            "mean_lead_turns_among_detected": null,
+            "trajectory_false_alarm_rate": 0.0
+          }
+        },
+        "relevant": {
+          "auc": {
+            "augmented_auc": 0.14726027397260277,
+            "baseline_auc": 0.14726027397260277,
+            "ci": null,
+            "delta_auc": 0.0,
+            "descriptive_only": true
+          },
+          "gate2": {
+            "failed_trajectories_with_checkpoints": 2,
+            "failure_recall": 0.0,
+            "healthy_trajectories": 10,
+            "mean_lead_turns_among_detected": null,
+            "trajectory_false_alarm_rate": 0.0
+          }
+        }
+      }
+    }
+  },
+  "reason": "Scripted mock responses; no empirical evidence about language models.",
+  "verdict": "INCONCLUSIVE"
+}

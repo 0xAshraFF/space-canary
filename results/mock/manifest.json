@@ -1,0 +1,60 @@
+{
+  "config": {
+    "approval": null,
+    "budget_usd": 25,
+    "experiment": {
+      "bootstrap_samples": 1000,
+      "calibration_per_model": 5,
+      "checkpoint_every": 3,
+      "false_alarm_target": 0.1,
+      "filler_chars": 1200,
+      "folds": 3,
+      "horizon": 3,
+      "main_economical": 30,
+      "main_frontier": 10,
+      "max_output_tokens": 512,
+      "mock_per_model": 12,
+      "turns": 24
+    },
+    "frontier_budget_usd": 8,
+    "live_enabled": false,
+    "models": [
+      {
+        "context_limit": 200000,
+        "family": "anthropic",
+        "id": "anthropic/claude-haiku-4.5",
+        "input_per_million": 1.0,
+        "key": "haiku",
+        "output_per_million": 5.0,
+        "provider": null,
+        "tier": "economical"
+      },
+      {
+        "context_limit": 163840,
+        "family": "deepseek",
+        "id": "deepseek/deepseek-v3.2",
+        "input_per_million": 0.269,
+        "key": "deepseek",
+        "output_per_million": 0.4,
+        "provider": null,
+        "tier": "economical"
+      },
+      {
+        "context_limit": 1000000,
+        "family": "anthropic",
+        "id": "anthropic/claude-opus-4.6",
+        "input_per_million": 5.0,
+        "key": "opus",
+        "output_per_million": 25.0,
+        "provider": null,
+        "tier": "frontier"
+      }
+    ],
+    "preregistration_commit": null,
+    "pricing_checked": "2026-09-19",
+    "pricing_source": "https://openrouter.ai/api/v1/models",
+    "seed": 20260919
+  },
+  "mode": "mock",
+  "protocol": 1
+}

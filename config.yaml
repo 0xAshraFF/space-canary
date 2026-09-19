@@ -1,0 +1,46 @@
+seed: 20260919
+budget_usd: 25
+frontier_budget_usd: 8
+pricing_checked: '2026-09-19'
+pricing_source: https://openrouter.ai/api/v1/models
+live_enabled: false
+preregistration_commit: null
+approval: null
+experiment:
+  turns: 24
+  checkpoint_every: 3
+  horizon: 3
+  filler_chars: 1200
+  max_output_tokens: 512
+  calibration_per_model: 5
+  main_economical: 30
+  main_frontier: 10
+  mock_per_model: 12
+  folds: 3
+  bootstrap_samples: 1000
+  false_alarm_target: 0.10
+models:
+  - key: haiku
+    id: anthropic/claude-haiku-4.5
+    tier: economical
+    family: anthropic
+    provider: null
+    input_per_million: 1.0
+    output_per_million: 5.0
+    context_limit: 200000
+  - key: deepseek
+    id: deepseek/deepseek-v3.2
+    tier: economical
+    family: deepseek
+    provider: null
+    input_per_million: 0.269
+    output_per_million: 0.4
+    context_limit: 163840
+  - key: opus
+    id: anthropic/claude-opus-4.6
+    tier: frontier
+    family: anthropic
+    provider: null
+    input_per_million: 5.0
+    output_per_million: 25.0
+    context_limit: 1000000

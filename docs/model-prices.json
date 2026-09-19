@@ -1,0 +1,48 @@
+{
+  "checked": "2026-09-19",
+  "source": "https://openrouter.ai/api/v1/models",
+  "models": [
+    {
+      "id": "z-ai/glm-5.3",
+      "pricing": {
+        "prompt": "0.00000091",
+        "completion": "0.00000286",
+        "input_cache_read": "0.000000169"
+      },
+      "context_length": 1310720
+    },
+    {
+      "id": "anthropic/claude-haiku-4.5",
+      "pricing": {
+        "prompt": "0.000001",
+        "completion": "0.000005",
+        "web_search": "0.01",
+        "input_cache_read": "0.0000001",
+        "input_cache_write": "0.00000125",
+        "input_cache_write_1h": "0.000002"
+      },
+      "context_length": 200000
+    },
+    {
+      "id": "anthropic/claude-opus-4.6",
+      "pricing": {
+        "prompt": "0.000005",
+        "completion": "0.000025",
+        "web_search": "0.01",
+        "input_cache_read": "0.0000005",
+        "input_cache_write": "0.00000625",
+        "input_cache_write_1h": "0.00001"
+      },
+      "context_length": 1000000
+    },
+    {
+      "id": "deepseek/deepseek-v3.2",
+      "pricing": {
+        "prompt": "0.000000269",
+        "completion": "0.0000004",
+        "input_cache_read": "0.0000001345"
+      },
+      "context_length": 163840
+    }
+  ]
+}

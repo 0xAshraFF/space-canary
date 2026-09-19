@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.env
+.env.*
+!.env.example
+results/live/
+results/mock/cache/
+results/mock/trajectories/
+results/mock/ledger.sqlite
+*.egg-info/
