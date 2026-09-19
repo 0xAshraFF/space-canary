@@ -15,9 +15,12 @@ def main():
     parser.add_argument('--output', default='results/mock')
     args = parser.parse_args()
     config = yaml.safe_load(Path(args.config).read_text())
-    if args.command in ['calibration', 'main']:
-        parser.error('Paid transport is not enabled in the dry-run milestone. Review and commit PREREGISTRATION.md, '
-                     'approve a provider-pinned cost estimate, then implement/validate live dispatch guards.')
+    if args.command == 'main':
+        parser.error('Main collection is locked until calibration qualification has been reviewed.')
+    if args.command == 'calibration':
+        from .live import run_calibration
+        print(json.dumps(run_calibration(config, args.output), indent=2))
+        return
     if args.command in ['dry-run', 'estimate']:
         report = estimate(config)
         atomic_json(Path(args.output) / 'cost-estimate.json', report)

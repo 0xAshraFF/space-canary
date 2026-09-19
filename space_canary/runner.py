@@ -145,12 +145,27 @@ def estimate(config):
                      'main_usd': round(cost * count, 6)})
     total = sum(r['calibration_usd'] + r['main_usd'] for r in rows)
     frontier = sum(r['calibration_usd'] + r['main_usd'] for r in rows if r['tier'] == 'frontier')
+    fallback = None
+    if config.get('fallback_models'):
+        model = config['fallback_models'][0]
+        count = exp['calibration_per_model']
+        cost = (input_tokens * model['input_per_million'] +
+                calls * exp['max_output_tokens'] * model['output_per_million']) / 1e6
+        fallback = {'model': model['key'], 'conditional_calibration_trajectories': count,
+                    'conditional_calibration_usd': round(cost * count, 6)}
     return {'kind': 'planning_estimate_not_quote_or_spending_authorization', 'models': rows,
             'estimated_total_usd': round(total, 4), 'estimated_frontier_usd': round(frontier, 4),
+            'conditional_fallback': fallback,
+            'estimated_calibration_usd': round(sum(r['calibration_usd'] for r in rows), 4),
+            'estimated_calibration_with_fallback_usd': round(
+                sum(r['calibration_usd'] for r in rows) +
+                (fallback['conditional_calibration_usd'] if fallback else 0), 4),
             'within_planning_caps': total <= config['budget_usd'] and frontier <= config['frontier_budget_usd'],
             'assumptions': ['UTF-8/4 input estimate from successful fixture traces',
                             'Maximum configured output tokens per call',
                             'No prompt-cache discounts or retries',
                             'No calibration retuning rounds included',
                             'Input estimates are not safe upper bounds for enforcing live budgets',
-                            'Prices verified in public OpenRouter catalog; backend not yet pinned']}
+                            ('Providers pinned in config with fallbacks disabled' if
+                             all(m.get('provider') for m in config['models']) else
+                             'Backend not yet pinned')]}

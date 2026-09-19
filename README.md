@@ -30,11 +30,13 @@ This prints the locked GLM allocation without running any model. `calibration` a
 | Allocation, including calibration | Estimated total | Opus share |
 | --- | ---: | ---: |
 | Haiku + DeepSeek + 15 Opus trajectories | $27.12 | $17.36 |
-| GLM 5.3 + DeepSeek + 6 Opus trajectories | $15.03 | $6.94 |
+| GLM 5.3 + DeepSeek + 6 Opus trajectories | $14.53 | $6.94 |
 
 The original allocation fails the $25 total / $8 frontier caps. The locked design uses GLM and DeepSeek as inferential arms and reduces Opus to a descriptive control. Opus receives no delta-AUROC confidence interval and cannot affect PASS/STOP. If GLM's five-trajectory calibration failure rate is below 20%, Haiku replaces it on the same frozen task design. Model definitions and published catalog pricing are in the config files; the captured source is [OpenRouter's public catalog](https://openrouter.ai/api/v1/models). Prices vary by endpoint and must be pinned before live use.
 
 Estimates use UTF-8/4 input approximations and maximum configured output tokens, without caching discounts or retries. They are planning estimates, not guaranteed bills. The SQLite ledger reserves an upper bound before dispatch, rejects cap overruns, and retains unresolved reservations across restarts. A paid transport must supply a validated upper bound and reconcile actual usage; display estimates must never substitute for that bound.
+
+Pinned-provider calibration estimate: approximately $6.87 for five trajectories each on GLM, DeepSeek, and Opus. The worst-case planned calibration is approximately $8.03 if GLM has zero failures and five Haiku replacement trajectories are required. No calibration call may run until this revised ceiling is explicitly approved.
 
 ## Research protocol
 

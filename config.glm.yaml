@@ -5,7 +5,8 @@ pricing_checked: '2026-09-19'
 pricing_source: https://openrouter.ai/api/v1/models
 live_enabled: false
 preregistration_commit: b39b105657d64a02fac8c5158edd23281ee7e7de
-approval: option_3_confirmed_2026-09-19
+approval: allocation_option_3_confirmed_2026-09-19
+paid_cost_approval: null
 experiment:
   turns: 24
   checkpoint_every: 3
@@ -31,26 +32,49 @@ models:
   id: z-ai/glm-5.3
   tier: economical
   family: z-ai
-  provider: null
-  input_per_million: 0.91
-  output_per_million: 2.86
-  context_limit: 1310720
+  provider: baidu
+  provider_display: Baidu
+  quantization: fp8
+  input_per_million: 0.8918
+  output_per_million: 2.8028
+  context_limit: 1048576
 - key: deepseek
   id: deepseek/deepseek-v3.2
   tier: economical
   family: deepseek
-  provider: null
-  input_per_million: 0.269
-  output_per_million: 0.4
+  provider: gmicloud
+  provider_display: GMICloud
+  quantization: fp8
+  input_per_million: 0.2088
+  output_per_million: 0.3096
   context_limit: 163840
 - key: opus
   id: anthropic/claude-opus-4.6
   tier: frontier
   family: anthropic
-  provider: null
+  provider: anthropic
+  provider_display: Anthropic
+  quantization: unknown
   input_per_million: 5.0
   output_per_million: 25.0
   context_limit: 1000000
   analysis_role: descriptive_only
   confidence_interval: false
   gate_decision_eligible: false
+fallback_models:
+- key: haiku
+  id: anthropic/claude-haiku-4.5
+  tier: economical
+  family: anthropic
+  provider: anthropic
+  provider_display: Anthropic
+  quantization: unknown
+  input_per_million: 1.0
+  output_per_million: 5.0
+  context_limit: 200000
+live_request:
+  endpoint: https://openrouter.ai/api/v1/chat/completions
+  temperature: 0
+  reasoning_enabled: false
+  allow_fallbacks: false
+  data_collection: deny

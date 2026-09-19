@@ -5,29 +5,36 @@
     "No prompt-cache discounts or retries",
     "No calibration retuning rounds included",
     "Input estimates are not safe upper bounds for enforcing live budgets",
-    "Prices verified in public OpenRouter catalog; backend not yet pinned"
+    "Providers pinned in config with fallbacks disabled"
   ],
+  "conditional_fallback": {
+    "conditional_calibration_trajectories": 5,
+    "conditional_calibration_usd": 1.157355,
+    "model": "haiku"
+  },
+  "estimated_calibration_usd": 6.8708,
+  "estimated_calibration_with_fallback_usd": 8.0282,
   "estimated_frontier_usd": 6.9441,
-  "estimated_total_usd": 15.032,
+  "estimated_total_usd": 14.5326,
   "kind": "planning_estimate_not_quote_or_spending_authorization",
   "models": [
     {
       "calibration_trajectories": 5,
-      "calibration_usd": 0.919075,
+      "calibration_usd": 0.900693,
       "calls_per_trajectory": 31,
       "estimated_input_tokens_per_trajectory": 152111,
       "main_trajectories": 30,
-      "main_usd": 5.514448,
+      "main_usd": 5.404159,
       "model": "glm",
       "tier": "economical"
     },
     {
       "calibration_trajectories": 5,
-      "calibration_usd": 0.236333,
+      "calibration_usd": 0.183374,
       "calls_per_trajectory": 31,
       "estimated_input_tokens_per_trajectory": 152111,
       "main_trajectories": 30,
-      "main_usd": 1.418,
+      "main_usd": 1.100242,
       "model": "deepseek",
       "tier": "economical"
     },
