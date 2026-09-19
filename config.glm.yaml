@@ -4,7 +4,7 @@ frontier_budget_usd: 8
 pricing_checked: '2026-09-19'
 pricing_source: https://openrouter.ai/api/v1/models
 live_enabled: false
-preregistration_commit: null
+preregistration_commit: b39b105657d64a02fac8c5158edd23281ee7e7de
 approval: option_3_confirmed_2026-09-19
 experiment:
   turns: 24

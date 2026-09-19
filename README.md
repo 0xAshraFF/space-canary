@@ -38,7 +38,7 @@ Estimates use UTF-8/4 input approximations and maximum configured output tokens,
 
 ## Research protocol
 
-Preregistration commit: **PENDING — draft requires confirmation; no paid calls.**
+Preregistration commit: [`b39b105657d64a02fac8c5158edd23281ee7e7de`](https://github.com/0xAshraFF/space-canary/commit/b39b105657d64a02fac8c5158edd23281ee7e7de). No paid calls preceded this commit.
 
 Read `PREREGISTRATION.md` and `verdict.md`. The smaller pilot cannot meet the earlier decision-grade minimum of 30 failed plus 30 successful trajectories per economical model. An underpowered result remains inconclusive. No main sample size is approved yet.
 
