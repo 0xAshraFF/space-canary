@@ -37,7 +37,7 @@ class OpenRouterClient:
             'messages': copy.deepcopy(messages),
             'temperature': live['temperature'],
             'max_tokens': self.config['experiment']['max_output_tokens'],
-            'reasoning_effort': live['reasoning_effort'],
+            'reasoning_effort': model['reasoning_effort'],
             'provider': {
                 'only': [model['provider']],
                 'allow_fallbacks': live['allow_fallbacks'],

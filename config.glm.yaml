@@ -47,6 +47,7 @@ models:
   token_count_method: glm_official_hf_template
   tokenizer_repo: zai-org/GLM-5.3
   tokenizer_revision: aca966e4e02791568aa6a4ced368624b3d897f42
+  reasoning_effort: low
 - key: deepseek
   id: deepseek/deepseek-v3.2
   tier: economical
@@ -60,6 +61,7 @@ models:
   token_count_method: deepseek_official_encoding
   tokenizer_repo: deepseek-ai/DeepSeek-V3.2
   tokenizer_revision: a7e62ac04ecb2c0a54d736dc46601c5606cf10a6
+  reasoning_effort: none
 - key: opus
   id: anthropic/claude-opus-4.6
   tier: frontier
@@ -72,6 +74,7 @@ models:
   context_limit: 1000000
   token_count_method: anthropic_count_tokens_api
   native_model_id: claude-opus-4-6
+  reasoning_effort: none
   analysis_role: descriptive_only
   confidence_interval: false
   gate_decision_eligible: false
@@ -88,9 +91,9 @@ fallback_models:
   context_limit: 200000
   token_count_method: anthropic_count_tokens_api
   native_model_id: claude-haiku-4-5-20251001
+  reasoning_effort: none
 live_request:
   endpoint: https://openrouter.ai/api/v1/chat/completions
   temperature: 0
-  reasoning_effort: none
   allow_fallbacks: false
   data_collection: deny
