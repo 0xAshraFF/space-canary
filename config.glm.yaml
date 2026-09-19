@@ -1,6 +1,8 @@
 seed: 20260919
 budget_usd: 25
 frontier_budget_usd: 8
+calibration_budget_usd: 8.05
+calibration_frontier_budget_usd: 6.95
 pricing_checked: '2026-09-19'
 pricing_source: https://openrouter.ai/api/v1/models
 live_enabled: false

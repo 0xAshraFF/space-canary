@@ -16,13 +16,15 @@ class LiveRunError(RuntimeError):
 
 
 class OpenRouterClient:
-    def __init__(self, directory, config):
+    def __init__(self, directory, config, total_cap=None, frontier_cap=None):
         self.directory = Path(directory)
         self.config = config
         self.api_key = os.environ.get('OPENROUTER_API_KEY')
         if not self.api_key:
             raise LiveRunError('OPENROUTER_API_KEY is not set')
-        self.ledger = Ledger(self.directory / 'ledger.sqlite', config['budget_usd'], config['frontier_budget_usd'])
+        self.ledger = Ledger(self.directory / 'ledger.sqlite',
+                             config['budget_usd'] if total_cap is None else total_cap,
+                             config['frontier_budget_usd'] if frontier_cap is None else frontier_cap)
         self.new_calls = 0
         self.cache_hits = 0
 
@@ -166,7 +168,8 @@ def run_calibration(config, directory):
     if manifest_path.exists() and json.loads(manifest_path.read_text()) != manifest:
         raise LiveRunError('Configuration changed: use a new output directory')
     atomic_json(manifest_path, manifest)
-    client = OpenRouterClient(directory, config)
+    client = OpenRouterClient(directory, config, config['calibration_budget_usd'],
+                              config['calibration_frontier_budget_usd'])
     records = []
     for model in config['models']:
         records.extend(_run_model(config, directory, client, model))

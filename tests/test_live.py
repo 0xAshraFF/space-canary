@@ -22,6 +22,15 @@ def test_live_lock_blocks_before_client_or_network(tmp_path):
         run_calibration(value, tmp_path)
 
 
+def test_calibration_uses_narrow_caps(monkeypatch, tmp_path):
+    monkeypatch.setenv('OPENROUTER_API_KEY', 'test-secret')
+    value = config()
+    client = OpenRouterClient(tmp_path, value, value['calibration_budget_usd'],
+                              value['calibration_frontier_budget_usd'])
+    assert client.ledger.total == 8_050_000
+    assert client.ledger.frontier == 6_950_000
+
+
 def test_payload_pins_provider_price_and_no_fallback(monkeypatch, tmp_path):
     monkeypatch.setenv('OPENROUTER_API_KEY', 'test-secret')
     value = config()
