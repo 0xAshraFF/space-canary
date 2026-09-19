@@ -37,7 +37,7 @@ class OpenRouterClient:
             'messages': copy.deepcopy(messages),
             'temperature': live['temperature'],
             'max_tokens': self.config['experiment']['max_output_tokens'],
-            'reasoning': {'enabled': live['reasoning_enabled']},
+            'reasoning_effort': live['reasoning_effort'],
             'provider': {
                 'only': [model['provider']],
                 'allow_fallbacks': live['allow_fallbacks'],
@@ -87,7 +87,15 @@ class OpenRouterClient:
         try:
             with urllib.request.urlopen(request, timeout=300) as raw:
                 result = json.load(raw)
-        except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as exc:
+        except urllib.error.HTTPError as exc:
+            body = exc.read().decode('utf-8', errors='replace')
+            atomic_json(self.directory / 'errors' / (request_hash + '.json'),
+                        {'request_hash': request_hash, 'status': exc.code, 'body': body})
+            if exc.code in [400, 401, 403, 404, 422]:
+                self.ledger.reject(request_hash, f'http_{exc.code}')
+                raise LiveRunError(f'Rejected before generation {request_hash}: HTTP {exc.code}: {body}') from exc
+            raise LiveRunError(f'Uncertain paid request {request_hash}; no automatic retry: {exc}') from exc
+        except (urllib.error.URLError, TimeoutError) as exc:
             # The request may have reached the provider. Its full reservation is
             # intentionally retained and the caller must reconcile before retry.
             raise LiveRunError(f'Uncertain paid request {request_hash}; no automatic retry: {exc}') from exc

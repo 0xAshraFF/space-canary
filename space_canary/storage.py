@@ -76,6 +76,18 @@ class Ledger:
                 raise BudgetExceeded('Actual cost exceeded reserved bound; retain reservation and halt for reconciliation')
             self.db.execute("UPDATE requests SET charged=?, state='complete' WHERE hash=?", (actual, request_hash))
 
+    def reject(self, request_hash, reason='rejected'):
+        if not reason.startswith('http_') and reason != 'manually_reconciled_rejected':
+            raise ValueError('Invalid rejection reason')
+        with self.db:
+            self.db.execute('BEGIN IMMEDIATE')
+            row = self.db.execute('SELECT state FROM requests WHERE hash=?', (request_hash,)).fetchone()
+            if not row:
+                raise RuntimeError('Cannot reject an unreserved request')
+            if row[0] == 'complete':
+                raise RuntimeError('Cannot reject a completed request')
+            self.db.execute('UPDATE requests SET charged=0, state=? WHERE hash=?', (reason, request_hash))
+
     def export(self):
         rows = self.db.execute('SELECT hash,tier,reserved,charged,state FROM requests ORDER BY hash').fetchall()
         return {'total_usd': sum(r[3] for r in rows) / 1e6,

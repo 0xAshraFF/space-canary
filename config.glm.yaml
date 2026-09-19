@@ -91,6 +91,6 @@ fallback_models:
 live_request:
   endpoint: https://openrouter.ai/api/v1/chat/completions
   temperature: 0
-  reasoning_enabled: false
+  reasoning_effort: none
   allow_fallbacks: false
   data_collection: deny

@@ -40,7 +40,7 @@ def test_payload_pins_provider_price_and_no_fallback(monkeypatch, tmp_path):
     assert payload['provider']['only'] == ['baidu']
     assert payload['provider']['allow_fallbacks'] is False
     assert payload['provider']['max_price'] == {'prompt': .8918, 'completion': 2.8028}
-    assert payload['reasoning'] == {'enabled': False}
+    assert payload['reasoning_effort'] == 'none'
     assert 'test-secret' not in json.dumps(payload)
     cost, measurement = client._upper_cost([{'role': 'user', 'content': 'hello'}], model)
     assert cost > 0

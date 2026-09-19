@@ -26,3 +26,11 @@ def test_frontier_cap_and_invalid_costs(tmp_path):
         ledger.settle('c', -1)
     with pytest.raises(BudgetExceeded):
         ledger.settle('c', 18)
+
+
+def test_definitely_rejected_request_releases_reservation(tmp_path):
+    ledger = Ledger(tmp_path / 'ledger.db', total=1, frontier=.5)
+    ledger.reserve('a', 'economical', 1)
+    ledger.reject('a', 'http_400')
+    ledger.reserve('b', 'economical', 1)
+    assert ledger.export()['total_usd'] == 1
