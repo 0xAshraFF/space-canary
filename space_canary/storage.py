@@ -65,6 +65,10 @@ class Ledger:
             self.db.execute('INSERT INTO requests VALUES (?,?,?,?,?)',
                             (request_hash, tier, upper, upper, 'pending'))
 
+    def state(self, request_hash):
+        row = self.db.execute('SELECT state FROM requests WHERE hash=?', (request_hash,)).fetchone()
+        return row[0] if row else None
+
     def settle(self, request_hash, actual_usd):
         actual = micros(actual_usd)
         with self.db:

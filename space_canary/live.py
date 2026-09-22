@@ -2,6 +2,7 @@
 import copy
 import json
 import os
+import time
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -29,6 +30,7 @@ class OpenRouterClient:
         self.new_calls = 0
         self.cache_hits = 0
         self.token_counter = InputTokenCounter()
+        self.last_dispatch = {}
 
     def _payload(self, messages, model):
         live = self.config['live_request']
@@ -63,19 +65,35 @@ class OpenRouterClient:
 
     def call(self, messages, model, task, turn, kind, config_hash):
         payload = self._payload(messages, model)
-        request_record = {'transport': 'openrouter', 'payload': payload, 'task_seed': task.seed,
-                          'turn': turn, 'kind': kind, 'config_hash': config_hash}
-        request_hash = digest(request_record)
-        cache_path = self.directory / 'cache' / (request_hash + '.json')
-        if cache_path.exists():
-            cached = json.loads(cache_path.read_text())
-            if cached['request'] != request_record:
-                raise LiveRunError('Cache request mismatch')
-            self.cache_hits += 1
-            return cached['response']
+        base_record = {'transport': 'openrouter', 'payload': payload, 'task_seed': task.seed,
+                       'turn': turn, 'kind': kind, 'config_hash': config_hash}
+        attempt = 0
+        while True:
+            request_record = dict(base_record)
+            if attempt:
+                request_record['retry_after_rejection'] = attempt
+            request_hash = digest(request_record)
+            cache_path = self.directory / 'cache' / (request_hash + '.json')
+            if cache_path.exists():
+                cached = json.loads(cache_path.read_text())
+                if cached['request'] != request_record:
+                    raise LiveRunError('Cache request mismatch')
+                self.cache_hits += 1
+                return cached['response']
+            state = self.ledger.state(request_hash)
+            if state and state.startswith('http_'):
+                attempt += 1
+                continue
+            break
 
         upper_cost, measurement = self._upper_cost(messages, model)
         self.ledger.reserve(request_hash, model['tier'], upper_cost)
+        # New OpenRouter accounts are limited to 20 Haiku requests/minute.
+        minimum_interval = 3.1 if model['key'] == 'haiku' else 0
+        previous = self.last_dispatch.get(model['key'])
+        if previous is not None and minimum_interval:
+            time.sleep(max(0, minimum_interval - (time.monotonic() - previous)))
+        self.last_dispatch[model['key']] = time.monotonic()
         request = urllib.request.Request(
             self.config['live_request']['endpoint'],
             data=json.dumps(payload).encode('utf-8'),
@@ -91,7 +109,7 @@ class OpenRouterClient:
             body = exc.read().decode('utf-8', errors='replace')
             atomic_json(self.directory / 'errors' / (request_hash + '.json'),
                         {'request_hash': request_hash, 'status': exc.code, 'body': body})
-            if exc.code in [400, 401, 403, 404, 422]:
+            if exc.code in [400, 401, 403, 404, 422, 429]:
                 self.ledger.reject(request_hash, f'http_{exc.code}')
                 raise LiveRunError(f'Rejected before generation {request_hash}: HTTP {exc.code}: {body}') from exc
             raise LiveRunError(f'Uncertain paid request {request_hash}; no automatic retry: {exc}') from exc
