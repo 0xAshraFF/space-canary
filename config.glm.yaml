@@ -9,10 +9,10 @@ calibration_budget_usd: 2.40
 calibration_frontier_budget_usd: 0
 pricing_checked: '2026-09-19'
 pricing_source: https://openrouter.ai/api/v1/models
-live_enabled: true
+live_enabled: false
 preregistration_commit: b39b105657d64a02fac8c5158edd23281ee7e7de
 approval: allocation_option_3_confirmed_2026-09-19
-paid_cost_approval: stage_a_max_2_40_approved_2026-09-19
+paid_cost_approval: null
 experiment:
   turns: 24
   checkpoint_every: 3

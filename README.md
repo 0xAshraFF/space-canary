@@ -2,7 +2,7 @@
 
 Testing whether context probes predict agent failures before they happen.
 
-**Status: offline dry-run prototype. No model experiment has run.** Mock responses deliberately create successes, failures and warning signals to exercise the pipeline. They are not evidence about real models.
+**Status: Stage A calibration is complete but invalid for model qualification. Stage B and the main run remain locked.** GLM and DeepSeek produced no failures at the frozen difficulty. Haiku exposed a response-parser defect, so its apparent failures are harness artifacts. See `CALIBRATION_STAGE_A.md` and `AMENDMENT_001.md`.
 
 ## Reproduce
 
@@ -23,7 +23,7 @@ The run produces `results/mock/raw.jsonl`, request/response caches, individual t
 python -m space_canary estimate --config config.glm.yaml --output results/glm-plan
 ```
 
-This prints the locked GLM allocation without running any model. `calibration` and `main` commands deliberately refuse execution. No API keys are needed or read in this milestone.
+This prints the locked allocation without running any model. Paid execution is locked in the checked-in configuration after the completed Stage A allocation. No API key is needed for estimates, dry runs, tests, or analysis.
 
 ## Cost choices
 

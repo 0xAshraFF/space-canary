@@ -57,6 +57,10 @@ def score_probe(task, answer):
 
 
 def parse_answer(raw):
+    if isinstance(raw, str):
+        fenced = re.fullmatch(r'```(?:json)?\s*(.*?)\s*```', raw.strip(), re.DOTALL | re.IGNORECASE)
+        if fenced:
+            raw = fenced.group(1)
     try:
         result = json.loads(raw)
         return result if isinstance(result, dict) else {}

@@ -1,5 +1,5 @@
 from space_canary.environment import Task
-from space_canary.probes import fork_probe, label_checkpoints, positions, score_probe
+from space_canary.probes import fork_probe, label_checkpoints, parse_answer, positions, score_probe
 
 
 def test_fork_is_deep_and_never_refreshes_main():
@@ -23,3 +23,12 @@ def test_future_only_labels_and_first_failure_exclusion():
     label_checkpoints(checkpoints, [{'turn': 6, 'kind': 'constraint:test'}], 3)
     assert [c['failure_next_k'] for c in checkpoints] == [1, 0, 0]
     assert [c['pre_failure'] for c in checkpoints] == [True, False, False]
+
+
+def test_parser_accepts_bare_and_fenced_json_but_not_surrounding_prose():
+    expected = {'tool': 'write_file', 'path': 'out/1.csv'}
+    raw = '{"tool":"write_file","path":"out/1.csv"}'
+    assert parse_answer(raw) == expected
+    assert parse_answer('```json\n' + raw + '\n```') == expected
+    assert parse_answer('```\n' + raw + '\n```') == expected
+    assert parse_answer('Here is the action: ' + raw) == {}
