@@ -270,3 +270,57 @@ def run_calibration(config, directory):
     return {'phase': 'calibration-stage-a', 'trajectories': len(records), 'qualification': qualification,
             'new_calls': client.new_calls, 'cache_hits': client.cache_hits,
             'actual_spend_usd': client.ledger.export()['total_usd']}
+
+
+def run_haiku_recalibration(config, directory):
+    repair = config.get('haiku_recalibration') or {}
+    if not repair.get('live_enabled'):
+        raise LiveRunError('Haiku recalibration is locked: live_enabled is false')
+    if not repair.get('amendment_commit'):
+        raise LiveRunError('Missing public parser-amendment commit')
+    if not repair.get('paid_cost_approval'):
+        raise LiveRunError('Missing explicit paid Haiku recalibration approval')
+    if repair.get('frontier_budget_usd') != 0:
+        raise LiveRunError('Haiku recalibration cannot allocate a frontier budget')
+
+    directory = Path(directory)
+    directory.mkdir(parents=True, exist_ok=True)
+    manifest = {'mode': 'live', 'phase': 'haiku-recalibration', 'config': config}
+    manifest_path = directory / 'manifest.json'
+    if manifest_path.exists() and json.loads(manifest_path.read_text()) != manifest:
+        raise LiveRunError('Configuration changed: use a new output directory')
+    atomic_json(manifest_path, manifest)
+
+    fallback_models = config.get('fallback_models') or []
+    if len(fallback_models) != 1 or fallback_models[0].get('key') != 'haiku':
+        raise LiveRunError('Expected exactly one pinned Haiku fallback model')
+    model = fallback_models[0]
+    if model.get('tier') != 'economical':
+        raise LiveRunError('Haiku recalibration cannot dispatch a frontier model')
+    client = OpenRouterClient(directory, config, repair['budget_usd'], 0)
+    records = _run_model(config, directory, client, model)
+    failures = sum(not record['labels']['task_success'] for record in records)
+    rate = failures / len(records)
+    minimum = config['qualification']['minimum_failure_rate']
+    maximum = config['qualification']['maximum_failure_rate']
+    qualification = {
+        'haiku': {
+            'failures': failures,
+            'trajectories': len(records),
+            'failure_rate': rate,
+            'failure_breakdown': _failure_breakdown(records),
+            'decision': 'qualifies' if minimum <= rate <= maximum else 'not_evaluable',
+        },
+        'deepseek': {'decision': 'not_evaluable_from_stage_a', 'failure_rate': 0.0},
+        'opus': {'decision': 'stage_b_locked', 'trajectories': 0,
+                 'analysis_role': 'descriptive_only'},
+    }
+    raw = directory / 'raw.jsonl.tmp'
+    raw.write_text(''.join(json.dumps(record, sort_keys=True) + '\n' for record in records))
+    raw.replace(directory / 'raw.jsonl')
+    atomic_json(directory / 'qualification.json', qualification)
+    atomic_json(directory / 'cost-ledger.json', client.ledger.export())
+    return {'phase': 'haiku-recalibration', 'trajectories': len(records),
+            'qualification': qualification, 'new_calls': client.new_calls,
+            'cache_hits': client.cache_hits,
+            'actual_spend_usd': client.ledger.export()['total_usd']}

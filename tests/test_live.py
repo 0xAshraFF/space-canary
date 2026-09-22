@@ -7,7 +7,7 @@ import pytest
 import yaml
 
 from space_canary.environment import Task
-from space_canary.live import LiveRunError, OpenRouterClient, run_calibration
+from space_canary.live import LiveRunError, OpenRouterClient, run_calibration, run_haiku_recalibration
 
 
 def config():
@@ -22,6 +22,33 @@ def test_live_lock_blocks_before_client_or_network(tmp_path):
     value['live_enabled'] = False
     with pytest.raises(LiveRunError, match='locked'):
         run_calibration(value, tmp_path)
+
+
+def test_haiku_recalibration_lock_blocks_before_client_or_network(tmp_path):
+    value = config()
+    assert value['haiku_recalibration']['amendment_commit']
+    with pytest.raises(LiveRunError, match='recalibration is locked'):
+        run_haiku_recalibration(value, tmp_path)
+
+
+def test_haiku_recalibration_uses_only_fallback_and_independent_cap(monkeypatch, tmp_path):
+    monkeypatch.setenv('OPENROUTER_API_KEY', 'test-secret')
+    value = config()
+    value['haiku_recalibration']['live_enabled'] = True
+    value['haiku_recalibration']['paid_cost_approval'] = 'test-approval'
+    observed = {}
+
+    def fake_run_model(selected_config, directory, client, model):
+        observed['model'] = model['key']
+        observed['cap'] = client.ledger.total
+        return [{'labels': {'task_success': True, 'events': []}} for _ in range(5)]
+
+    monkeypatch.setattr('space_canary.live._run_model', fake_run_model)
+    result = run_haiku_recalibration(value, tmp_path)
+    assert observed == {'model': 'haiku', 'cap': 1_850_000}
+    assert result['trajectories'] == 5
+    assert result['qualification']['haiku']['decision'] == 'not_evaluable'
+    assert result['actual_spend_usd'] == 0
 
 
 def test_calibration_uses_narrow_caps(monkeypatch, tmp_path):

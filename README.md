@@ -25,6 +25,14 @@ python -m space_canary estimate --config config.glm.yaml --output results/glm-pl
 
 This prints the locked allocation without running any model. Paid execution is locked in the checked-in configuration after the completed Stage A allocation. No API key is needed for estimates, dry runs, tests, or analysis.
 
+The prospective parser-repair rerun is Haiku-only and has an independent disabled approval switch and $1.85 hard cap:
+
+```sh
+python -m space_canary recalibrate-haiku --config config.glm.yaml --output results/live/haiku-recalibration-v1
+```
+
+It refuses all network calls until `haiku_recalibration.live_enabled` and its paid approval field are set in a public commit.
+
 ## Cost choices
 
 | Allocation, including calibration | Estimated total | Opus share |

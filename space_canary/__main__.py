@@ -10,7 +10,8 @@ from .storage import atomic_json
 
 def main():
     parser = argparse.ArgumentParser(description='Space Canary: offline pilot harness')
-    parser.add_argument('command', choices=['dry-run', 'estimate', 'analyze', 'calibration', 'main'])
+    parser.add_argument('command', choices=['dry-run', 'estimate', 'analyze', 'calibration',
+                                            'recalibrate-haiku', 'main'])
     parser.add_argument('--config', default='config.yaml')
     parser.add_argument('--output', default='results/mock')
     args = parser.parse_args()
@@ -20,6 +21,10 @@ def main():
     if args.command == 'calibration':
         from .live import run_calibration
         print(json.dumps(run_calibration(config, args.output), indent=2))
+        return
+    if args.command == 'recalibrate-haiku':
+        from .live import run_haiku_recalibration
+        print(json.dumps(run_haiku_recalibration(config, args.output), indent=2))
         return
     if args.command in ['dry-run', 'estimate']:
         report = estimate(config)
