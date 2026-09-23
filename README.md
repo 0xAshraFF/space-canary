@@ -2,6 +2,8 @@
 
 Testing whether context probes predict agent failures before they happen.
 
+**V2:** a delayed-dependency environment is now implemented with protected edits, report routing, and matched policy reminders. Sixty deterministic fixtures validate the scorer; no v2 model outcomes exist yet. See [offline results](V2_OFFLINE_RESULTS.md), [task specification](ENVIRONMENT_V2.md), and [prospective calibration](PREREGISTRATION_V2.md). The prepared 24-trajectory model run remains disabled, with a proposed $6 cap.
+
 **Status: calibration is complete and the frozen environment is not evaluable. Stage B and the main run remain locked.** GLM, DeepSeek, and the corrected Haiku rerun each produced zero failures in five trajectories. See `CALIBRATION_STAGE_A.md`, `HAIKU_RECALIBRATION.md`, and `AMENDMENT_001.md`.
 
 ## Reproduce

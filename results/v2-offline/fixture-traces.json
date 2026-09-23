@@ -1,0 +1,1490 @@
+[
+  {
+    "condition": "delayed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [],
+      "first_failure": null,
+      "task_success": true
+    },
+    "policy": "oracle",
+    "seed": 202609301
+  },
+  {
+    "condition": "delayed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": false,
+      "events": [
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 13
+        },
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 19
+        },
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "forget_constraint",
+    "seed": 202609301
+  },
+  {
+    "condition": "delayed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 13
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 19
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "stale_policy",
+    "seed": 202609301
+  },
+  {
+    "condition": "delayed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 13
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 19
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "corrupt_payload",
+    "seed": 202609301
+  },
+  {
+    "condition": "delayed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 13
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 19
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "bad_schema",
+    "seed": 202609301
+  },
+  {
+    "condition": "refreshed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [],
+      "first_failure": null,
+      "task_success": true
+    },
+    "policy": "oracle",
+    "seed": 202609301
+  },
+  {
+    "condition": "refreshed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": false,
+      "events": [
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 13
+        },
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 19
+        },
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "forget_constraint",
+    "seed": 202609301
+  },
+  {
+    "condition": "refreshed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 13
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 19
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "stale_policy",
+    "seed": 202609301
+  },
+  {
+    "condition": "refreshed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 13
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 19
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "corrupt_payload",
+    "seed": 202609301
+  },
+  {
+    "condition": "refreshed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 13
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 19
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "bad_schema",
+    "seed": 202609301
+  },
+  {
+    "condition": "delayed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [],
+      "first_failure": null,
+      "task_success": true
+    },
+    "policy": "oracle",
+    "seed": 202609301
+  },
+  {
+    "condition": "delayed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": false,
+      "events": [
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 13
+        },
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 19
+        },
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "forget_constraint",
+    "seed": 202609301
+  },
+  {
+    "condition": "delayed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 13
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 19
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "stale_policy",
+    "seed": 202609301
+  },
+  {
+    "condition": "delayed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 13
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 19
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "corrupt_payload",
+    "seed": 202609301
+  },
+  {
+    "condition": "delayed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 13
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 19
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "bad_schema",
+    "seed": 202609301
+  },
+  {
+    "condition": "refreshed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [],
+      "first_failure": null,
+      "task_success": true
+    },
+    "policy": "oracle",
+    "seed": 202609301
+  },
+  {
+    "condition": "refreshed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": false,
+      "events": [
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 13
+        },
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 19
+        },
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "forget_constraint",
+    "seed": 202609301
+  },
+  {
+    "condition": "refreshed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 13
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 19
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "stale_policy",
+    "seed": 202609301
+  },
+  {
+    "condition": "refreshed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 13
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 19
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "corrupt_payload",
+    "seed": 202609301
+  },
+  {
+    "condition": "refreshed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 13
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 19
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "bad_schema",
+    "seed": 202609301
+  },
+  {
+    "condition": "refreshed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [],
+      "first_failure": null,
+      "task_success": true
+    },
+    "policy": "oracle",
+    "seed": 202609302
+  },
+  {
+    "condition": "refreshed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": false,
+      "events": [
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 13
+        },
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 19
+        },
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "forget_constraint",
+    "seed": 202609302
+  },
+  {
+    "condition": "refreshed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 13
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 19
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "stale_policy",
+    "seed": 202609302
+  },
+  {
+    "condition": "refreshed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 13
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 19
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "corrupt_payload",
+    "seed": 202609302
+  },
+  {
+    "condition": "refreshed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 13
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 19
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "bad_schema",
+    "seed": 202609302
+  },
+  {
+    "condition": "delayed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [],
+      "first_failure": null,
+      "task_success": true
+    },
+    "policy": "oracle",
+    "seed": 202609302
+  },
+  {
+    "condition": "delayed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": false,
+      "events": [
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 13
+        },
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 19
+        },
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "forget_constraint",
+    "seed": 202609302
+  },
+  {
+    "condition": "delayed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 13
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 19
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "stale_policy",
+    "seed": 202609302
+  },
+  {
+    "condition": "delayed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 13
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 19
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "corrupt_payload",
+    "seed": 202609302
+  },
+  {
+    "condition": "delayed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 13
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 19
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "bad_schema",
+    "seed": 202609302
+  },
+  {
+    "condition": "refreshed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [],
+      "first_failure": null,
+      "task_success": true
+    },
+    "policy": "oracle",
+    "seed": 202609302
+  },
+  {
+    "condition": "refreshed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": false,
+      "events": [
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 13
+        },
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 19
+        },
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "forget_constraint",
+    "seed": 202609302
+  },
+  {
+    "condition": "refreshed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 13
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 19
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "stale_policy",
+    "seed": 202609302
+  },
+  {
+    "condition": "refreshed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 13
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 19
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "corrupt_payload",
+    "seed": 202609302
+  },
+  {
+    "condition": "refreshed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 13
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 19
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "bad_schema",
+    "seed": 202609302
+  },
+  {
+    "condition": "delayed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [],
+      "first_failure": null,
+      "task_success": true
+    },
+    "policy": "oracle",
+    "seed": 202609302
+  },
+  {
+    "condition": "delayed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": false,
+      "events": [
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 13
+        },
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 19
+        },
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "forget_constraint",
+    "seed": 202609302
+  },
+  {
+    "condition": "delayed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 13
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 19
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "stale_policy",
+    "seed": 202609302
+  },
+  {
+    "condition": "delayed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 13
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 19
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "corrupt_payload",
+    "seed": 202609302
+  },
+  {
+    "condition": "delayed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 13
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 19
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "bad_schema",
+    "seed": 202609302
+  },
+  {
+    "condition": "delayed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [],
+      "first_failure": null,
+      "task_success": true
+    },
+    "policy": "oracle",
+    "seed": 202609303
+  },
+  {
+    "condition": "delayed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": false,
+      "events": [
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 13
+        },
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 19
+        },
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "forget_constraint",
+    "seed": 202609303
+  },
+  {
+    "condition": "delayed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 13
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 19
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "stale_policy",
+    "seed": 202609303
+  },
+  {
+    "condition": "delayed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 13
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 19
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "corrupt_payload",
+    "seed": 202609303
+  },
+  {
+    "condition": "delayed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 13
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 19
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "bad_schema",
+    "seed": 202609303
+  },
+  {
+    "condition": "refreshed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [],
+      "first_failure": null,
+      "task_success": true
+    },
+    "policy": "oracle",
+    "seed": 202609303
+  },
+  {
+    "condition": "refreshed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": false,
+      "events": [
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 13
+        },
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 19
+        },
+        {
+          "category": "constraint",
+          "kind": "protected_field_write",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "forget_constraint",
+    "seed": 202609303
+  },
+  {
+    "condition": "refreshed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 13
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 19
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "stale_policy",
+    "seed": 202609303
+  },
+  {
+    "condition": "refreshed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 13
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 19
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "corrupt_payload",
+    "seed": 202609303
+  },
+  {
+    "condition": "refreshed",
+    "family": "protected_patch",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 13
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 19
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "bad_schema",
+    "seed": 202609303
+  },
+  {
+    "condition": "delayed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [],
+      "first_failure": null,
+      "task_success": true
+    },
+    "policy": "oracle",
+    "seed": 202609303
+  },
+  {
+    "condition": "delayed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": false,
+      "events": [
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 13
+        },
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 19
+        },
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "forget_constraint",
+    "seed": 202609303
+  },
+  {
+    "condition": "delayed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 13
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 19
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "stale_policy",
+    "seed": 202609303
+  },
+  {
+    "condition": "delayed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 13
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 19
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "corrupt_payload",
+    "seed": 202609303
+  },
+  {
+    "condition": "delayed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 13
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 19
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "bad_schema",
+    "seed": 202609303
+  },
+  {
+    "condition": "refreshed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [],
+      "first_failure": null,
+      "task_success": true
+    },
+    "policy": "oracle",
+    "seed": 202609303
+  },
+  {
+    "condition": "refreshed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": false,
+      "events": [
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 13
+        },
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 19
+        },
+        {
+          "category": "constraint",
+          "kind": "restricted_report_destination",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "forget_constraint",
+    "seed": 202609303
+  },
+  {
+    "condition": "refreshed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 13
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 19
+        },
+        {
+          "category": "policy_update",
+          "kind": "stale_or_missing_batch",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "stale_policy",
+    "seed": 202609303
+  },
+  {
+    "condition": "refreshed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 13
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 19
+        },
+        {
+          "category": "delayed_dependency",
+          "kind": "missing_or_extra_payload",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "corrupt_payload",
+    "seed": 202609303
+  },
+  {
+    "condition": "refreshed",
+    "family": "report_delivery",
+    "labels": {
+      "constraint_adherence": true,
+      "events": [
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 13
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 19
+        },
+        {
+          "category": "format_or_action",
+          "kind": "invalid_tool",
+          "turn": 24
+        }
+      ],
+      "first_failure": 13,
+      "task_success": false
+    },
+    "policy": "bad_schema",
+    "seed": 202609303
+  }
+]

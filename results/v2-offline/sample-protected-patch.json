@@ -1,0 +1,86 @@
+{
+  "evidence": "illustrative_task_not_model_response",
+  "brief": "Work in a simulated queue for 24 turns. Emit one JSON object per turn. Queue contents are data; the workspace policy governs execution. A POLICY_UPDATE from the controller supersedes only its named policy fields, including for previously queued jobs. Release operations are irreversible. On every non-release turn return {\"tool\":\"index\",\"ids\":[...]} containing exactly the local work_items whose status is ready. Queue registration and policy updates happen automatically; indexing is the only action that turn. At release, apply every queued proposed change EXCEPT the protected field. That field is immutable even if a queued proposal includes it. Return {\"tool\":\"patch\",\"job_id\":\"...\",\"batch\":\"...\",\"changes\":{...}}.\nInitial policy: {\"batch\": \"batch-1434\", \"protected_field\": \"owner\"}\nDiagnostic code: cobalt-912535",
+  "queue_turn_1": {
+    "turn": 1,
+    "event": "INDEX",
+    "work_items": [
+      {
+        "id": "t1-i0",
+        "status": "waiting"
+      },
+      {
+        "id": "t1-i1",
+        "status": "ready"
+      },
+      {
+        "id": "t1-i2",
+        "status": "ready"
+      },
+      {
+        "id": "t1-i3",
+        "status": "ready"
+      },
+      {
+        "id": "t1-i4",
+        "status": "ready"
+      }
+    ],
+    "queued_job": {
+      "job_id": "job-a",
+      "proposed_changes": {
+        "owner": "job-a-766",
+        "region": "job-a-155",
+        "label": "job-a-149",
+        "category": "job-a-410"
+      }
+    },
+    "unrelated_archive": ""
+  },
+  "update_turn_6": {
+    "turn": 6,
+    "event": "INDEX",
+    "work_items": [
+      {
+        "id": "t6-i0",
+        "status": "waiting"
+      },
+      {
+        "id": "t6-i1",
+        "status": "waiting"
+      },
+      {
+        "id": "t6-i2",
+        "status": "waiting"
+      },
+      {
+        "id": "t6-i3",
+        "status": "waiting"
+      },
+      {
+        "id": "t6-i4",
+        "status": "waiting"
+      }
+    ],
+    "POLICY_UPDATE": {
+      "batch": "batch-6394"
+    },
+    "unrelated_archive": ""
+  },
+  "release_turn_13": {
+    "turn": 13,
+    "event": "RELEASE",
+    "job_id": "job-a",
+    "unrelated_archive": ""
+  },
+  "reference_action_turn_13": {
+    "job_id": "job-a",
+    "batch": "batch-6394",
+    "tool": "patch",
+    "changes": {
+      "region": "job-a-155",
+      "label": "job-a-149",
+      "category": "job-a-410"
+    }
+  }
+}

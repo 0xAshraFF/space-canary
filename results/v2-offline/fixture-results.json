@@ -1,0 +1,53 @@
+{
+  "api_spend_usd": 0,
+  "evidence": "deterministic_software_fixtures_not_model_results",
+  "policies": {
+    "bad_schema": {
+      "event_categories": {
+        "format_or_action": 36
+      },
+      "first_failures": [
+        13
+      ],
+      "successes": 0,
+      "trajectories": 12
+    },
+    "corrupt_payload": {
+      "event_categories": {
+        "delayed_dependency": 36
+      },
+      "first_failures": [
+        13
+      ],
+      "successes": 0,
+      "trajectories": 12
+    },
+    "forget_constraint": {
+      "event_categories": {
+        "constraint": 36
+      },
+      "first_failures": [
+        13
+      ],
+      "successes": 0,
+      "trajectories": 12
+    },
+    "oracle": {
+      "event_categories": {},
+      "first_failures": [],
+      "successes": 12,
+      "trajectories": 12
+    },
+    "stale_policy": {
+      "event_categories": {
+        "policy_update": 36
+      },
+      "first_failures": [
+        13
+      ],
+      "successes": 0,
+      "trajectories": 12
+    }
+  },
+  "trajectories": 60
+}

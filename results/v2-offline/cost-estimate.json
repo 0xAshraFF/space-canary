@@ -1,0 +1,24 @@
+{
+  "estimated_total_usd": 5.105241824,
+  "input_method": "utf8_div_4_oracle_transcripts_not_live_budget_measurement",
+  "kind": "planning_estimate_not_quote_or_authorization",
+  "models": [
+    {
+      "calls": 372,
+      "estimated_usd": 0.7661298240000001,
+      "input_tokens_estimate": 3386792,
+      "maximum_output_tokens": 190464,
+      "model": "deepseek",
+      "trajectories": 12
+    },
+    {
+      "calls": 372,
+      "estimated_usd": 4.339112,
+      "input_tokens_estimate": 3386792,
+      "maximum_output_tokens": 190464,
+      "model": "haiku",
+      "trajectories": 12
+    }
+  ],
+  "proposed_hard_cap_usd": 6.0
+}
