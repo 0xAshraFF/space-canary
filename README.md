@@ -2,7 +2,7 @@
 
 Testing whether context probes predict agent failures before they happen.
 
-**Status: Stage A calibration is complete but invalid for model qualification. Stage B and the main run remain locked.** GLM and DeepSeek produced no failures at the frozen difficulty. Haiku exposed a response-parser defect, so its apparent failures are harness artifacts. See `CALIBRATION_STAGE_A.md` and `AMENDMENT_001.md`.
+**Status: calibration is complete and the frozen environment is not evaluable. Stage B and the main run remain locked.** GLM, DeepSeek, and the corrected Haiku rerun each produced zero failures in five trajectories. See `CALIBRATION_STAGE_A.md`, `HAIKU_RECALIBRATION.md`, and `AMENDMENT_001.md`.
 
 ## Reproduce
 
@@ -25,13 +25,13 @@ python -m space_canary estimate --config config.glm.yaml --output results/glm-pl
 
 This prints the locked allocation without running any model. Paid execution is locked in the checked-in configuration after the completed Stage A allocation. No API key is needed for estimates, dry runs, tests, or analysis.
 
-The prospective parser-repair rerun is Haiku-only and has an independent disabled approval switch and $1.85 hard cap:
+The completed parser-repair rerun was Haiku-only and had an independent $1.85 hard cap:
 
 ```sh
 python -m space_canary recalibrate-haiku --config config.glm.yaml --output results/live/haiku-recalibration-v1
 ```
 
-It refuses all network calls until `haiku_recalibration.live_enabled` and its paid approval field are set in a public commit.
+Paid execution is disabled again. The command refuses network calls unless a new public approval commit explicitly re-enables it.
 
 ## Cost choices
 
