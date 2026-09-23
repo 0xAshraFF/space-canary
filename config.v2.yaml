@@ -6,7 +6,7 @@ v2:
   version: 2
   live_enabled: false
   paid_cost_approval: null
-  public_protocol_commit: null
+  public_protocol_commit: 0af6eb1ba4f8a0eeca85d3bf7d8cf7870033eefe
   seeds:
   - 202609301
   - 202609302
